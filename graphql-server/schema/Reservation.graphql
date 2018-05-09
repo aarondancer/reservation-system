@@ -1,0 +1,40 @@
+type Reservation {
+  id: ObjID!
+  name: String!
+  hotelName: String!
+  arrivalDate: String!
+  departureDate: String!
+  createdAt: Float!
+  updatedAt: Float!
+}
+
+extend type Query {
+  reservations(lastCreatedAt: Float, limit: Int): [Reservation!]
+  reservation(id: ObjID!): Reservation
+}
+
+input CreateReservationInput {
+  name: String!
+  hotelName: String!
+  arrivalDate: String!
+  departureDate: String!
+}
+
+input UpdateReservationInput {
+  name: String!
+  hotelName: String!
+  arrivalDate: String!
+  departureDate: String!
+}
+
+extend type Mutation {
+  createReservation(input: CreateReservationInput!): Reservation
+  updateReservation(id: ObjID!, input: UpdateReservationInput!): Reservation
+  removeReservation(id: ObjID!): Boolean
+}
+
+extend type Subscription {
+  reservationCreated: Reservation
+  reservationUpdated: Reservation
+  reservationRemoved: ObjID
+}
